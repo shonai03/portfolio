@@ -6,11 +6,15 @@
   <title>i am shonai(sho)</title>
   <link href="https://fonts.googleapis.com/css?family=Montserrat:700,400&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.12.2/lottie.min.js"></script>
   <style>
     :root {
       --dark-bg: #15161b;
       --light-text: #ffe066;
       --accent: #7fbeab;
+      --light-bg: #fffde4;
+      --dark-text: #15161b;
     }
     body {
       background: linear-gradient(120deg, #1abc9c 0%, #16a085 100%);
@@ -871,16 +875,106 @@
       border-radius: 50%;
       opacity: 0.85;
     }
+    body.light-mode {
+      background: linear-gradient(120deg, #fffde4 0%, #ffe066 100%);
+      color: #15161b;
+    }
+    body.light-mode nav {
+      background: rgba(21, 22, 27, 0.08);
+      box-shadow: 0 4px 24px rgba(255,224,102,0.10);
+    }
+    body.light-mode nav a {
+      color: #15161b;
+    }
+    body.light-mode nav a:hover {
+      background: rgba(127, 190, 171, 0.18);
+      color: #ffe066;
+    }
+    body.light-mode .hero-modern {
+      background: radial-gradient(circle at 60% 40%, #ffe066 0%, #fffde4 40%, #7c6ca1 100%);
+    }
+    body.light-mode .info-card {
+      background: radial-gradient(circle at 60% 40%, #ffe066 0%, #fffde4 40%, #7c6ca1 100%);
+      color: #15161b;
+    }
+    body.light-mode .project-card {
+      background: rgba(255, 224, 102, 0.12);
+    }
+    body.light-mode .img-watermark, body.light-mode .modal-watermark {
+      color: #15161b;
+    }
+    body.light-mode .contact-btn {
+      background: linear-gradient(90deg, #15161b 60%, #7fbeab 100%);
+      color: #ffe066 !important;
+    }
+    body.light-mode .contact-btn:hover {
+      background: linear-gradient(90deg, #7fbeab 60%, #15161b 100%);
+      color: #fffde4 !important;
+    }
+    body.light-mode .footer-socials .social-icon:hover {
+      background: #15161b;
+      color: #ffe066;
+    }
+    body.light-mode .modal-close {
+      color: #15161b;
+    }
+    body.light-mode .modal-close:hover {
+      color: #ffe066;
+    }
+    body.light-mode .stat-number {
+      color: #15161b;
+    }
+    body.light-mode .stat-label {
+      color: #7c6ca1;
+    }
+    body.light-mode .project-card h3 {
+      color: #15161b;
+    }
+    body.light-mode .project-card p {
+      color: #15161b;
+    }
+    body.light-mode footer {
+      color: #15161b;
+    }
+    @keyframes spin { 0% { transform: rotate(0deg);} 100% { transform: rotate(360deg);} }
+  </style>
+  <style>
+    .custom-cursor {
+      position: fixed;
+      top: 0; left: 0;
+      width: 32px; height: 32px;
+      border: 2.5px solid #ffe066;
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 100000;
+      transform: translate(-50%, -50%) scale(1);
+      transition: transform 0.18s cubic-bezier(.4,2,.6,1), border-color 0.18s;
+      background: rgba(255, 224, 102, 0.08);
+      mix-blend-mode: lighten;
+    }
+    .custom-cursor.grow {
+      transform: translate(-50%, -50%) scale(1.7);
+      border-color: #7c6ca1;
+      background: rgba(124, 108, 161, 0.13);
+    }
   </style>
 </head>
 <body>
-  <section class="hero fade-in hero-modern">
+  <div id="preloader" style="position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:99999;background:rgba(21,22,27,0.98);display:flex;align-items:center;justify-content:center;transition:opacity 0.5s;">
+    <div style="display:flex;flex-direction:column;align-items:center;">
+      <div class="loader-spin" style="width:54px;height:54px;border:6px solid #ffe066;border-top:6px solid #7c6ca1;border-radius:50%;animation:spin 1s linear infinite;"></div>
+      <div style="margin-top:1.2rem;color:#ffe066;font-weight:700;letter-spacing:0.08em;">Loading...</div>
+    </div>
+  </div>
+  <div id="scroll-progress" style="position:fixed;top:0;left:0;height:4px;width:0;background:#ffe066;z-index:10001;transition:width 0.2s;"></div>
+  <section class="hero fade-in hero-modern" data-aos="fade-up" data-aos-duration="1200" aria-label="Hero section">
     <div class="hero-bg-blob hero-bg-blob1"></div>
     <div class="hero-bg-blob hero-bg-blob2"></div>
     <div class="hero-bg-blob hero-bg-blob3"></div>
     <div class="hero-bg-circle hero-bg-circle1"></div>
     <div class="hero-bg-circle hero-bg-circle2"></div>
     <div class="hero-left">
+      <div id="lottie-art" style="width:120px;height:120px;margin-bottom:1.2rem;"></div>
       <div class="profile-pic-wrapper">
         <img src="profile.jpg" alt="Profile Photo" class="profile-pic-modern">
         <span class="badge badge-award">🏆 Award-winning</span>
@@ -901,17 +995,28 @@
       </div>
     </div>
   </section>
-  <nav class="fade-in">
+  <nav class="fade-in" data-aos="fade-down" data-aos-duration="1000" aria-label="Main navigation" role="navigation">
     <a href="#about">About</a>
     <a href="#contact">Contact</a>
+    <button id="theme-toggle" aria-label="Toggle dark or light mode" style="background:none;border:none;cursor:pointer;font-size:1.3rem;color:#ffe066;margin-left:1.5rem;">🌙</button>
+    <select id="lang-switch" aria-label="Language switcher" style="margin-left:1.2rem;padding:0.3em 1em;border-radius:18px;border:none;font-weight:700;font-size:1rem;cursor:pointer;background:#fffde4;color:#15161b;">
+      <option value="en">EN</option>
+      <option value="hi">हिंदी</option>
+    </select>
   </nav>
-  <div class="container">
-    <section id="work" class="fade-in" style="position:relative; overflow:visible;">
+  <main class="container" role="main">
+    <section id="work" class="fade-in" style="position:relative; overflow:visible;" data-aos="fade-up" data-aos-delay="200" aria-label="Portfolio projects">
       <div class="projects-bg" style="height:100%; width:100%;"></div>
       <div class="projects-content">
         <h2>Selected Work</h2>
+        <div id="project-filters" style="text-align:center; margin-bottom:1.5rem;">
+          <button class="filter-btn" data-filter="all" style="background:#ffe066;color:#15161b;font-weight:700;border:none;border-radius:18px;padding:0.5em 1.3em;margin:0 0.3em;cursor:pointer;transition:background 0.2s;">All</button>
+          <button class="filter-btn" data-filter="digital" style="background:#fffde4;color:#1abc9c;font-weight:700;border:none;border-radius:18px;padding:0.5em 1.3em;margin:0 0.3em;cursor:pointer;transition:background 0.2s;">Digital</button>
+          <button class="filter-btn" data-filter="sketch" style="background:#fffde4;color:#7c6ca1;font-weight:700;border:none;border-radius:18px;padding:0.5em 1.3em;margin:0 0.3em;cursor:pointer;transition:background 0.2s;">Sketch</button>
+          <button class="filter-btn" data-filter="pixel" style="background:#fffde4;color:#fd5949;font-weight:700;border:none;border-radius:18px;padding:0.5em 1.3em;margin:0 0.3em;cursor:pointer;transition:background 0.2s;">Pixel Art</button>
+        </div>
         <div class="projects">
-          <div class="project-card">
+          <div class="project-card" data-aos="zoom-in-up" data-aos-delay="100" data-category="digital fanart">
             <div class="project-img">
               <img src="itachi.jpg" alt="Itachi Uchiha">
               <div class="img-watermark">© Sho</div>
@@ -920,7 +1025,7 @@
             <h3>Itachi Uchiha</h3>
             <p>Fan art of Itachi Uchiha, capturing his iconic look and emotional depth from the Naruto series.</p>
           </div>
-          <div class="project-card">
+          <div class="project-card" data-aos="zoom-in-up" data-aos-delay="200" data-category="digital manga">
             <div class="project-img">
               <img src="akaza.jpg" alt="Akaza Manga">
               <div class="img-watermark">© Sho</div>
@@ -929,7 +1034,7 @@
             <h3>Akaza Manga Panel</h3>
             <p>Dynamic colored manga panel of Akaza from Demon Slayer, highlighting expressive linework and vibrant colors.</p>
           </div>
-          <div class="project-card">
+          <div class="project-card" data-aos="zoom-in-up" data-aos-delay="300" data-category="sketch">
             <div class="project-img">
               <img src="girl.jpg" alt="Anime Girl Sketch">
               <div class="img-watermark">© Sho</div>
@@ -938,7 +1043,7 @@
             <h3>Anime Girl Sketch</h3>
             <p>Pencil sketch of an anime girl, focusing on soft lines and expressive features.</p>
           </div>
-          <div class="project-card">
+          <div class="project-card" data-aos="zoom-in-up" data-aos-delay="400" data-category="digital nature">
             <div class="project-img">
               <img src="lake-girl.jpg" alt="Anime Girl by Lake">
               <div class="img-watermark">© Sho</div>
@@ -947,7 +1052,7 @@
             <h3>Serene Reflections</h3>
             <p>Anime-style digital painting of a girl by a tranquil lake, capturing a peaceful moment in nature.</p>
           </div>
-          <div class="project-card">
+          <div class="project-card" data-aos="zoom-in-up" data-aos-delay="500" data-category="sketch">
             <div class="project-img">
               <img src="kimono-girl.jpg" alt="Kimono Girl Sketch">
               <div class="img-watermark">© Sho</div>
@@ -956,7 +1061,7 @@
             <h3>Kimono Elegance</h3>
             <p>Pencil sketch of a girl in a kimono, highlighting delicate linework and expressive eyes.</p>
           </div>
-          <div class="project-card">
+          <div class="project-card" data-aos="zoom-in-up" data-aos-delay="600" data-category="pixel">
             <div class="project-img">
               <img src="pixel-landscape.jpg" alt="Pixel Art Landscape">
               <div class="img-watermark">© Sho</div>
@@ -968,7 +1073,40 @@
         </div>
       </div>
     </section>
-    <section id="about" class="info-card fade-in" style="margin-top:3rem;">
+    <section id="testimonials" class="info-card fade-in" style="margin-top:3rem;" data-aos="fade-up" data-aos-delay="500" aria-label="Testimonials">
+      <div class="info-bg-blob info-bg-blob1"></div>
+      <div class="info-bg-blob info-bg-blob2"></div>
+      <div class="info-bg-blob info-bg-blob3"></div>
+      <div class="info-bg-circle info-bg-circle1"></div>
+      <div class="info-bg-circle info-bg-circle2"></div>
+      <h2>Testimonials</h2>
+      <div style="display: flex; flex-wrap: wrap; gap: 2rem; justify-content: center; margin-top: 2rem;">
+        <div style="background: rgba(44,62,80,0.13); border-radius: 16px; padding: 1.5rem 1.2rem; max-width: 320px; min-width: 220px; box-shadow: 0 2px 12px rgba(44,62,80,0.10);">
+          <p style="font-style: italic; color: #fffde4; margin-bottom: 1rem;">"Arryan's art exceeded my expectations! The attention to detail and emotion in the piece was incredible."</p>
+          <div style="font-weight: 700; color: #ffe066;">— Priya S.</div>
+        </div>
+        <div style="background: rgba(44,62,80,0.13); border-radius: 16px; padding: 1.5rem 1.2rem; max-width: 320px; min-width: 220px; box-shadow: 0 2px 12px rgba(44,62,80,0.10);">
+          <p style="font-style: italic; color: #fffde4; margin-bottom: 1rem;">"Professional, creative, and always delivers on time. Highly recommended for digital commissions!"</p>
+          <div style="font-weight: 700; color: #ffe066;">— Rahul M.</div>
+        </div>
+        <div style="background: rgba(44,62,80,0.13); border-radius: 16px; padding: 1.5rem 1.2rem; max-width: 320px; min-width: 220px; box-shadow: 0 2px 12px rgba(44,62,80,0.10);">
+          <p style="font-style: italic; color: #fffde4; margin-bottom: 1rem;">"The artwork brought my character to life! I'll definitely be back for more."</p>
+          <div style="font-weight: 700; color: #ffe066;">— Sneha K.</div>
+        </div>
+      </div>
+    </section>
+    <section id="instagram-feed" class="info-card fade-in" style="margin-top:3rem;" data-aos="fade-up" data-aos-delay="600" aria-label="Instagram Feed">
+      <div class="info-bg-blob info-bg-blob1"></div>
+      <div class="info-bg-blob info-bg-blob2"></div>
+      <div class="info-bg-blob info-bg-blob3"></div>
+      <div class="info-bg-circle info-bg-circle1"></div>
+      <div class="info-bg-circle info-bg-circle2"></div>
+      <h2>Instagram Feed</h2>
+      <div style="text-align:center;margin-top:2rem;">
+        <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/arryan0330/" data-instgrm-version="14" style="background:#fffde4; border-radius:16px; max-width:400px; margin:auto;"></blockquote>
+      </div>
+    </section>
+    <section id="about" class="info-card fade-in" style="margin-top:3rem;" data-aos="fade-up" data-aos-delay="300" aria-label="About">
       <div class="info-bg-blob info-bg-blob1"></div>
       <div class="info-bg-blob info-bg-blob2"></div>
       <div class="info-bg-blob info-bg-blob3"></div>
@@ -980,7 +1118,7 @@
         A dedicated artist blending the fluidity of sketching with the precision of digital tools to create emotionally resonant and visually striking pieces. With a strong focus on storytelling and detail, my work explores the intersection of imagination and reality, aiming to evoke thought and connection through every stroke and pixel.
       </p>
     </section>
-    <section id="contact" class="info-card fade-in" style="margin-top:3rem;">
+    <section id="contact" class="info-card fade-in" style="margin-top:3rem;" data-aos="fade-up" data-aos-delay="400" aria-label="Contact">
       <div class="info-bg-blob info-bg-blob1"></div>
       <div class="info-bg-blob info-bg-blob2"></div>
       <div class="info-bg-blob info-bg-blob3"></div>
@@ -994,9 +1132,16 @@
         <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp Chat" style="width:24px;height:24px;vertical-align:middle;margin-right:8px;"> Chat with us on WhatsApp
       </a>
       <!-- WhatsApp Chat Button End -->
+      <form id="contact-form" action="https://formsubmit.co/arryanraj354@gmail.com" method="POST" style="margin-top:2rem;max-width:420px;margin-left:auto;margin-right:auto;background:rgba(44,62,80,0.10);padding:1.5rem 1.2rem;border-radius:16px;box-shadow:0 2px 12px rgba(44,62,80,0.08);display:flex;flex-direction:column;gap:1.1rem;">
+        <input type="text" id="cf-name" name="name" placeholder="Your Name" required style="padding:0.7em 1em;border-radius:8px;border:none;font-size:1.1rem;outline:none;">
+        <input type="email" id="cf-email" name="email" placeholder="Your Email" required style="padding:0.7em 1em;border-radius:8px;border:none;font-size:1.1rem;outline:none;">
+        <textarea id="cf-message" name="message" placeholder="Your Message" required rows="4" style="padding:0.7em 1em;border-radius:8px;border:none;font-size:1.1rem;outline:none;"></textarea>
+        <button type="submit" style="background:#ffe066;color:#15161b;font-weight:700;border:none;border-radius:18px;padding:0.7em 1.6em;font-size:1.1rem;cursor:pointer;transition:background 0.2s;">Send Message</button>
+        <div id="cf-success" style="display:none;color:#1abc9c;font-weight:700;margin-top:0.5em;text-align:center;">Thank you! Your message has been sent.</div>
+      </form>
     </section>
-  </div>
-  <footer class="fade-in">
+  </main>
+  <footer class="fade-in" role="contentinfo" aria-label="Footer">
     <div class="footer-socials">
       <a href="https://www.instagram.com/arryan0330?igsh=MWExM3B2OTc1OGpwbw==" target="_blank" aria-label="Instagram" class="social-icon">
         <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -1026,14 +1171,24 @@
         </svg>
       </a>
     </div>
++   <form id="newsletter-form" style="margin:1.5rem auto 0 auto;max-width:340px;display:flex;gap:0.5rem;align-items:center;justify-content:center;">
++     <input type="email" id="newsletter-email" placeholder="Your email for updates" required style="padding:0.6em 1em;border-radius:18px;border:none;font-size:1rem;outline:none;">
++     <button type="submit" style="background:#ffe066;color:#15161b;font-weight:700;border:none;border-radius:18px;padding:0.6em 1.2em;font-size:1rem;cursor:pointer;transition:background 0.2s;">Subscribe</button>
++   </form>
++   <div id="newsletter-success" style="display:none;color:#1abc9c;font-weight:700;margin-top:0.5em;text-align:center;">Thank you for subscribing!</div>
   </footer>
   <div id="image-modal" class="image-modal">
     <span class="modal-close">&times;</span>
+    <button id="modal-prev" aria-label="Previous image" style="position:absolute;left:24px;top:50%;transform:translateY(-50%);background:rgba(21,22,27,0.5);color:#ffe066;border:none;border-radius:50%;width:40px;height:40px;font-size:1.5rem;z-index:10002;cursor:pointer;display:none;">&#8592;</button>
+    <button id="modal-next" aria-label="Next image" style="position:absolute;right:24px;top:50%;transform:translateY(-50%);background:rgba(21,22,27,0.5);color:#ffe066;border:none;border-radius:50%;width:40px;height:40px;font-size:1.5rem;z-index:10002;cursor:pointer;display:none;">&#8594;</button>
     <div class="modal-img-wrapper">
       <img class="modal-content" id="modal-img" src="" alt="Full Project Image">
       <div class="modal-watermark">© Sho</div>
     </div>
   </div>
+  <button id="back-to-top" aria-label="Back to top" style="display:none;position:fixed;bottom:32px;right:32px;z-index:9999;background:#ffe066;color:#15161b;font-size:2rem;border:none;border-radius:50%;width:52px;height:52px;box-shadow:0 2px 12px rgba(44,62,80,0.13);cursor:pointer;transition:background 0.2s,transform 0.2s;outline:none;" tabindex="0">↑</button>
+  <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+  <script async src="https://www.instagram.com/embed.js"></script>
   <script>
     // Fade-in on scroll
     const faders = document.querySelectorAll('.fade-in');
@@ -1057,16 +1212,51 @@
         const img = this.closest('.project-img').querySelector('img');
         const modal = document.getElementById('image-modal');
         const modalImg = document.getElementById('modal-img');
-        modalImg.src = img.src;
+        // Gather all project images
+        window._galleryImages = Array.from(document.querySelectorAll('.project-img img'));
+        window._galleryIndex = window._galleryImages.findIndex(i => i === img);
+        function showImg(idx) {
+          if (window._galleryImages[idx]) {
+            modalImg.src = window._galleryImages[idx].src;
+            window._galleryIndex = idx;
+          }
+        }
+        showImg(window._galleryIndex);
         modal.style.display = 'flex';
+        // Show/hide nav buttons
+        document.getElementById('modal-prev').style.display = window._galleryImages.length > 1 ? 'block' : 'none';
+        document.getElementById('modal-next').style.display = window._galleryImages.length > 1 ? 'block' : 'none';
+        // Next/Prev handlers
+        document.getElementById('modal-prev').onclick = function(e) {
+          e.stopPropagation();
+          showImg((window._galleryIndex - 1 + window._galleryImages.length) % window._galleryImages.length);
+        };
+        document.getElementById('modal-next').onclick = function(e) {
+          e.stopPropagation();
+          showImg((window._galleryIndex + 1) % window._galleryImages.length);
+        };
+        // Keyboard navigation
+        window._modalKeyHandler = function(e) {
+          if (modal.style.display !== 'flex') return;
+          if (e.key === 'ArrowLeft') {
+            showImg((window._galleryIndex - 1 + window._galleryImages.length) % window._galleryImages.length);
+          } else if (e.key === 'ArrowRight') {
+            showImg((window._galleryIndex + 1) % window._galleryImages.length);
+          } else if (e.key === 'Escape') {
+            modal.style.display = 'none';
+          }
+        };
+        document.addEventListener('keydown', window._modalKeyHandler);
       });
     });
     document.querySelector('.modal-close').onclick = function() {
       document.getElementById('image-modal').style.display = 'none';
+      document.removeEventListener('keydown', window._modalKeyHandler);
     };
     document.getElementById('image-modal').onclick = function(e) {
       if (e.target === this) {
         this.style.display = 'none';
+        document.removeEventListener('keydown', window._modalKeyHandler);
       }
     };
     // 3. Ripple effect on contact button click
@@ -1114,6 +1304,206 @@
         });
       }
     });
+    // Theme toggle
+    const themeToggle = document.getElementById('theme-toggle');
+    const prefersLight = window.matchMedia('(prefers-color-scheme: light)').matches;
+    function setTheme(mode) {
+      if (mode === 'light') {
+        document.body.classList.add('light-mode');
+        themeToggle.textContent = '☀️';
+      } else {
+        document.body.classList.remove('light-mode');
+        themeToggle.textContent = '🌙';
+      }
+      localStorage.setItem('theme', mode);
+    }
+    themeToggle.addEventListener('click', () => {
+      const isLight = document.body.classList.contains('light-mode');
+      setTheme(isLight ? 'dark' : 'light');
+    });
+    // On load, set theme from localStorage or system preference
+    (function() {
+      const saved = localStorage.getItem('theme');
+      if (saved) setTheme(saved);
+      else setTheme(prefersLight ? 'light' : 'dark');
+    })();
+    // Initialize AOS
+    AOS.init({ once: true });
+    // Portfolio filtering
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+      btn.addEventListener('click', function() {
+        const filter = this.getAttribute('data-filter');
+        document.querySelectorAll('.filter-btn').forEach(b => b.style.background = '#fffde4');
+        this.style.background = '#ffe066';
+        document.querySelectorAll('.project-card').forEach(card => {
+          const cat = card.getAttribute('data-category') || '';
+          if (filter === 'all' || cat.includes(filter)) {
+            card.style.display = '';
+          } else {
+            card.style.display = 'none';
+          }
+        });
+      });
+    });
+    // Contact form validation (keep client-side validation, allow submit)
+    const cfForm = document.getElementById('contact-form');
+    if (cfForm) {
+      const name = document.getElementById('cf-name');
+      const email = document.getElementById('cf-email');
+      const message = document.getElementById('cf-message');
+      const success = document.getElementById('cf-success');
+      function validateEmail(val) {
+        return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val);
+      }
+      [name, email, message].forEach(input => {
+        input.addEventListener('input', function() {
+          this.style.border = (this.value.trim() === '' || (this === email && !validateEmail(this.value))) ? '2px solid #fd5949' : 'none';
+        });
+      });
+      cfForm.addEventListener('submit', function(e) {
+        let valid = true;
+        [name, email, message].forEach(input => {
+          if (input.value.trim() === '' || (input === email && !validateEmail(input.value))) {
+            input.style.border = '2px solid #fd5949';
+            valid = false;
+          } else {
+            input.style.border = 'none';
+          }
+        });
+        if (!valid) {
+          e.preventDefault();
+        } else {
+          // Show success message after redirect
+          setTimeout(() => { success.style.display = 'block'; }, 500);
+        }
+      });
+    }
+    // Preloader
+    window.addEventListener('load', function() {
+      const pre = document.getElementById('preloader');
+      if (pre) {
+        pre.style.opacity = 0;
+        setTimeout(() => pre.style.display = 'none', 600);
+      }
+    });
+    // Back to Top button
+    const backToTop = document.getElementById('back-to-top');
+    window.addEventListener('scroll', function() {
+      if (window.scrollY > 300) {
+        backToTop.style.display = 'block';
+      } else {
+        backToTop.style.display = 'none';
+      }
+    });
+    backToTop.addEventListener('click', function() {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+    // Scroll progress bar
+    const scrollProgress = document.getElementById('scroll-progress');
+    window.addEventListener('scroll', function() {
+      const scrollTop = window.scrollY;
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const percent = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+      scrollProgress.style.width = percent + '%';
+    });
+    // Language switcher
+    const langSwitch = document.getElementById('lang-switch');
+    const navAbout = document.querySelector('nav a[href="#about"]');
+    const navContact = document.querySelector('nav a[href="#contact"]');
+    const heroTitle = document.querySelector('.hero-title-main');
+    const heroHighlight = document.querySelector('.hero-title-highlight');
+    const heroSubtitle = document.querySelector('.hero-subtitle-modern');
+    const heroBtn = document.querySelector('.hero-btn');
+    const langData = {
+      en: {
+        about: 'About',
+        contact: 'Contact',
+        heroTitle: "Hi, I'm Arryan",
+        heroHighlight: 'Artist/<span class="highlight-yellow">Digital Artist</span>',
+        heroSubtitle: 'A passionate artist devoted to crafting expressive digital and sketch artworks that inspire, connect, and leave a lasting impression.',
+        heroBtn: 'View My Work',
+      },
+      hi: {
+        about: 'परिचय',
+        contact: 'संपर्क',
+        heroTitle: 'नमस्ते, मैं आर्यन हूँ',
+        heroHighlight: 'कलाकार/<span class="highlight-yellow">डिजिटल कलाकार</span>',
+        heroSubtitle: 'एक समर्पित कलाकार, जो डिजिटल और स्केच कला के माध्यम से भावनाओं को जीवंत करता है।',
+        heroBtn: 'मेरा कार्य देखें',
+      }
+    };
+    langSwitch.addEventListener('change', function() {
+      const l = langSwitch.value;
+      navAbout.textContent = langData[l].about;
+      navContact.textContent = langData[l].contact;
+      heroTitle.textContent = langData[l].heroTitle;
+      heroHighlight.innerHTML = langData[l].heroHighlight;
+      heroSubtitle.textContent = langData[l].heroSubtitle;
+      heroBtn.textContent = langData[l].heroBtn;
+    });
+    // Lottie animation in hero
+    lottie.loadAnimation({
+      container: document.getElementById('lottie-art'),
+      renderer: 'svg',
+      loop: true,
+      autoplay: true,
+      path: 'https://assets2.lottiefiles.com/packages/lf20_2ks3pjua.json' // Sample art/paint animation
+    });
+    // Newsletter signup
+    const newsletterForm = document.getElementById('newsletter-form');
+    if (newsletterForm) {
+      const email = document.getElementById('newsletter-email');
+      const success = document.getElementById('newsletter-success');
+      function validateEmail(val) {
+        return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val);
+      }
+      email.addEventListener('input', function() {
+        this.style.border = (!validateEmail(this.value)) ? '2px solid #fd5949' : 'none';
+      });
+      newsletterForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        if (validateEmail(email.value)) {
+          success.style.display = 'block';
+          newsletterForm.reset();
+          setTimeout(() => { success.style.display = 'none'; }, 3500);
+        } else {
+          email.style.border = '2px solid #fd5949';
+        }
+      });
+    }
+    // Custom cursor
+    const cursor = document.getElementById('custom-cursor');
+    document.addEventListener('mousemove', e => {
+      cursor.style.left = e.clientX + 'px';
+      cursor.style.top = e.clientY + 'px';
+    });
+    document.addEventListener('mousedown', () => {
+      cursor.classList.add('grow');
+    });
+    document.addEventListener('mouseup', () => {
+      cursor.classList.remove('grow');
+    });
+    // Grow cursor on interactive elements
+    document.querySelectorAll('a, button, input, textarea, select, .view-btn, .contact-btn, .filter-btn').forEach(el => {
+      el.addEventListener('mouseenter', () => cursor.classList.add('grow'));
+      el.addEventListener('mouseleave', () => cursor.classList.remove('grow'));
+    });
+    // Hide default cursor
+    document.body.style.cursor = 'none';
+    // Improved custom cursor visibility
+    function showCustomCursor() {
+      cursor.style.display = 'block';
+      document.body.style.cursor = 'none';
+    }
+    function hideCustomCursor() {
+      cursor.style.display = 'none';
+      document.body.style.cursor = '';
+    }
+    window.addEventListener('mouseenter', showCustomCursor);
+    window.addEventListener('mouseleave', hideCustomCursor);
+    // Initial state
+    showCustomCursor();
   </script>
+  <div class="custom-cursor" id="custom-cursor"></div>
 </body>
 </html>
