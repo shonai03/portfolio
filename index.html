@@ -374,7 +374,10 @@
       background: none;
       transition: box-shadow 0.22s, transform 0.18s, background 0.22s;
       box-shadow: none;
-      padding: 0.18rem;
+      padding: 0.28rem;
+      font-size: 2.2rem;
+      width: 52px;
+      height: 52px;
     }
     .social-icon:hover {
       background: #ffe066;
@@ -937,6 +940,37 @@
       color: #15161b;
     }
     @keyframes spin { 0% { transform: rotate(0deg);} 100% { transform: rotate(360deg);} }
+    body.light-mode .info-card {
+      color: #15161b;
+    }
+    body.light-mode .about-quote {
+      color: #7c6ca1;
+    }
+    body.light-mode .hero-title-main,
+    body.light-mode .hero-title-highlight {
+      color: #15161b;
+    }
+    body.light-mode .highlight-yellow {
+      color: #7c6ca1;
+    }
+    body.light-mode #about p {
+      color: #15161b;
+    }
+    body.light-mode .hero-subtitle-modern,
+    body.light-mode .hero-subtitle {
+      color: #232323 !important;
+    }
+    body.light-mode .info-card,
+    body.light-mode .info-card p,
+    body.light-mode .info-card div,
+    body.light-mode .info-card span,
+    body.light-mode .info-card blockquote {
+      color: #232323 !important;
+    }
+    body.light-mode .info-card [style*="color: #ffe066"],
+    body.light-mode .info-card [style*="color:#ffe066"] {
+      color: #7c6ca1 !important;
+    }
   </style>
   <style>
     .custom-cursor {
@@ -1148,28 +1182,26 @@
   <footer class="fade-in" role="contentinfo" aria-label="Footer">
     <div class="footer-socials">
       <a href="https://www.instagram.com/arryan0330?igsh=MWExM3B2OTc1OGpwbw==" target="_blank" aria-label="Instagram" class="social-icon">
-        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <svg width="38" height="38" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
           <defs>
-            <radialGradient id="ig-gradient" cx="50%" cy="50%" r="80%" fx="50%" fy="50%">
-              <stop offset="0%" stop-color="#fdf497"/>
-              <stop offset="45%" stop-color="#fdf497"/>
-              <stop offset="60%" stop-color="#fd5949"/>
-              <stop offset="90%" stop-color="#d6249f"/>
-              <stop offset="100%" stop-color="#285AEB"/>
-            </radialGradient>
+            <linearGradient id="IG1" x1="12" y1="2" x2="12" y2="22" gradientUnits="userSpaceOnUse">
+              <stop stop-color="#f58529"/>
+              <stop offset="0.5" stop-color="#dd2a7b"/>
+              <stop offset="1" stop-color="#515bd4"/>
+            </linearGradient>
           </defs>
-          <rect width="24" height="24" rx="6" fill="url(#ig-gradient)"/>
+          <rect width="24" height="24" rx="6" fill="url(#IG1)"/>
           <path d="M16.98 3H7.02C4.25 3 3 4.25 3 7.02V16.98C3 19.75 4.25 21 7.02 21H16.98C19.75 21 21 19.75 21 16.98V7.02C21 4.25 19.75 3 16.98 3ZM12 8.4C13.99 8.4 15.6 10.01 15.6 12C15.6 13.99 13.99 15.6 12 15.6C10.01 15.6 8.4 13.99 8.4 12C8.4 10.01 10.01 8.4 12 8.4ZM18.2 7.25C18.2 7.94 17.64 8.5 16.95 8.5C16.26 8.5 15.7 7.94 15.7 7.25C15.7 6.56 16.26 6 16.95 6C17.64 6 18.2 6.56 18.2 7.25ZM19.2 16.98C19.2 18.13 18.13 19.2 16.98 19.2H7.02C5.87 19.2 4.8 18.13 4.8 16.98V10.8H6.6C6.6 13.32 8.68 15.4 11.2 15.4C13.72 15.4 15.8 13.32 15.8 10.8H19.2V16.98Z" fill="#fff"/>
         </svg>
       </a>
       <a href="https://github.com/shonai03" target="_blank" aria-label="GitHub" class="social-icon">
-        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <svg width="38" height="38" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
           <rect width="24" height="24" rx="6" fill="#181717"/>
           <path d="M12 2C6.48 2 2 6.58 2 12.26C2 16.74 5.07 20.43 9.26 21.5C9.81 21.6 10.02 21.28 10.02 21.01C10.02 20.77 10.01 20.09 10.01 19.25C7 19.91 6.34 17.98 6.34 17.98C5.84 16.77 5.09 16.47 5.09 16.47C4.03 15.77 5.17 15.79 5.17 15.79C6.34 15.88 6.93 17.01 6.93 17.01C8 18.85 9.78 18.34 10.46 18.07C10.56 17.33 10.84 16.82 11.15 16.56C8.62 16.29 6 15.29 6 11.5C6 10.39 6.39 9.5 7.05 8.77C6.95 8.5 6.6 7.41 7.15 5.97C7.15 5.97 8 5.68 10.01 7.01C10.87 6.77 11.8 6.65 12.73 6.65C13.66 6.65 14.59 6.77 15.45 7.01C17.46 5.68 18.31 5.97 18.31 5.97C18.86 7.41 18.51 8.5 18.41 8.77C19.07 9.5 19.46 10.39 19.46 11.5C19.46 15.3 16.83 16.29 14.29 16.56C14.7 16.89 15.08 17.56 15.08 18.57C15.08 20.02 15.07 20.74 15.07 21.01C15.07 21.28 15.28 21.61 15.84 21.5C20.03 20.43 23.1 16.74 23.1 12.26C23.1 6.58 18.52 2 12 2Z" fill="#fff"/>
         </svg>
       </a>
       <a href="https://discord.gg/J2x8PmnP" target="_blank" aria-label="Discord" class="social-icon">
-        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <svg width="38" height="38" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
           <rect width="24" height="24" rx="6" fill="#5865F2"/>
           <path d="M20.317 4.3698C18.725 3.6538 17.025 3.1438 15.255 2.8798C15.015 2.8398 14.785 2.9698 14.685 3.1898C14.485 3.6298 14.255 4.1498 14.105 4.5898C12.325 4.3498 10.565 4.3498 8.795 4.5898C8.655 4.1498 8.415 3.6298 8.215 3.1898C8.115 2.9698 7.885 2.8398 7.645 2.8798C5.875 3.1438 4.175 3.6538 2.583 4.3698C2.363 4.4698 2.243 4.7298 2.323 4.9498C3.293 7.6298 4.793 10.0998 6.713 12.2298C6.893 12.4298 7.173 12.4898 7.413 12.3898C8.113 12.0998 8.843 11.7898 9.573 11.5098C9.733 11.4498 9.913 11.4898 10.033 11.6098C10.473 12.0498 10.973 12.4698 11.513 12.8498C11.713 12.9798 11.963 12.9798 12.163 12.8498C12.703 12.4698 13.203 12.0498 13.643 11.6098C13.763 11.4898 13.943 11.4498 14.103 11.5098C14.833 11.7898 15.563 12.0998 16.263 12.3898C16.503 12.4898 16.783 12.4298 16.963 12.2298C18.893 10.0998 20.393 7.6298 21.363 4.9498C21.443 4.7298 21.323 4.4698 21.103 4.3698ZM8.453 9.8698C7.733 9.8698 7.153 9.2498 7.153 8.5098C7.153 7.7698 7.743 7.1498 8.453 7.1498C9.173 7.1498 9.753 7.7698 9.753 8.5098C9.753 9.2498 9.173 9.8698 8.453 9.8698ZM15.553 9.8698C14.833 9.8698 14.253 9.2498 14.253 8.5098C14.253 7.7698 14.843 7.1498 15.553 7.1498C16.273 7.1498 16.853 7.7698 16.853 8.5098C16.853 9.2498 16.273 9.8698 15.553 9.8698Z" fill="#fff"/>
         </svg>
@@ -1382,14 +1414,22 @@
         }
       });
     }
-    // Preloader
-    window.addEventListener('load', function() {
+    // Preloader (reduced time, skip for repeat visitors)
+    (function() {
       const pre = document.getElementById('preloader');
-      if (pre) {
-        pre.style.opacity = 0;
-        setTimeout(() => pre.style.display = 'none', 600);
+      const preloadKey = 'visited_previously';
+      if (localStorage.getItem(preloadKey)) {
+        if (pre) pre.style.display = 'none';
+      } else {
+        document.addEventListener('DOMContentLoaded', function() {
+          setTimeout(() => {
+            if (pre) pre.style.opacity = 0;
+            setTimeout(() => { if (pre) pre.style.display = 'none'; }, 400);
+          }, 500); // 0.5s for first visit
+        });
+        localStorage.setItem(preloadKey, 'yes');
       }
-    });
+    })();
     // Back to Top button
     const backToTop = document.getElementById('back-to-top');
     window.addEventListener('scroll', function() {
