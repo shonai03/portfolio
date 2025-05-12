@@ -1171,11 +1171,11 @@
         </svg>
       </a>
     </div>
-+   <form id="newsletter-form" style="margin:1.5rem auto 0 auto;max-width:340px;display:flex;gap:0.5rem;align-items:center;justify-content:center;">
-+     <input type="email" id="newsletter-email" placeholder="Your email for updates" required style="padding:0.6em 1em;border-radius:18px;border:none;font-size:1rem;outline:none;">
-+     <button type="submit" style="background:#ffe066;color:#15161b;font-weight:700;border:none;border-radius:18px;padding:0.6em 1.2em;font-size:1rem;cursor:pointer;transition:background 0.2s;">Subscribe</button>
-+   </form>
-+   <div id="newsletter-success" style="display:none;color:#1abc9c;font-weight:700;margin-top:0.5em;text-align:center;">Thank you for subscribing!</div>
+    <form id="newsletter-form" action="https://formsubmit.co/arryanraj354@gmail.com" method="POST" style="margin:1.5rem auto 0 auto;max-width:340px;display:flex;gap:0.5rem;align-items:center;justify-content:center;">
+      <input type="email" id="newsletter-email" placeholder="Your email for updates" required style="padding:0.6em 1em;border-radius:18px;border:none;font-size:1rem;outline:none;">
+      <button type="submit" style="background:#ffe066;color:#15161b;font-weight:700;border:none;border-radius:18px;padding:0.6em 1.2em;font-size:1rem;cursor:pointer;transition:background 0.2s;">Subscribe</button>
+    </form>
+    <div id="newsletter-success" style="display:none;color:#1abc9c;font-weight:700;margin-top:0.5em;text-align:center;">Thank you for subscribing!</div>
   </footer>
   <div id="image-modal" class="image-modal">
     <span class="modal-close">&times;</span>
@@ -1449,7 +1449,7 @@
       autoplay: true,
       path: 'https://assets2.lottiefiles.com/packages/lf20_2ks3pjua.json' // Sample art/paint animation
     });
-    // Newsletter signup
+    // Newsletter signup (keep validation, allow submit)
     const newsletterForm = document.getElementById('newsletter-form');
     if (newsletterForm) {
       const email = document.getElementById('newsletter-email');
@@ -1461,13 +1461,12 @@
         this.style.border = (!validateEmail(this.value)) ? '2px solid #fd5949' : 'none';
       });
       newsletterForm.addEventListener('submit', function(e) {
-        e.preventDefault();
-        if (validateEmail(email.value)) {
-          success.style.display = 'block';
-          newsletterForm.reset();
-          setTimeout(() => { success.style.display = 'none'; }, 3500);
-        } else {
+        if (!validateEmail(email.value)) {
+          e.preventDefault();
           email.style.border = '2px solid #fd5949';
+        } else {
+          // Show success message after redirect
+          setTimeout(() => { success.style.display = 'block'; }, 500);
         }
       });
     }
