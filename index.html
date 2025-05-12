@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>i am shonai(sho)</title>
   <link href="https://fonts.googleapis.com/css?family=Montserrat:700,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
   <style>
     :root {
       --dark-bg: #15161b;
@@ -14,7 +15,7 @@
     body {
       background: linear-gradient(120deg, #1abc9c 0%, #16a085 100%);
       color: #ffe066;
-      font-family: 'Montserrat', Arial, sans-serif;
+      font-family: 'Inter', 'Montserrat', Arial, sans-serif;
       margin: 0;
       min-height: 100vh;
       position: relative;
@@ -111,11 +112,27 @@
       transition: background 0.25s, color 0.25s, box-shadow 0.25s;
       letter-spacing: 0.04em;
       box-shadow: none;
+      position: relative;
+      overflow: hidden;
     }
     nav a:hover {
       background: rgba(127, 190, 171, 0.25);
       color: #15161b;
       box-shadow: 0 2px 8px rgba(127, 190, 171, 0.10);
+    }
+    nav a::after {
+      content: '';
+      position: absolute;
+      left: 0; right: 0; bottom: 6px;
+      height: 3px;
+      background: #ffe066;
+      border-radius: 2px;
+      transform: scaleX(0);
+      transition: transform 0.3s cubic-bezier(.4,2,.6,1);
+      z-index: 1;
+    }
+    nav a:hover::after {
+      transform: scaleX(1);
     }
     .container {
       max-width: 1000px;
@@ -316,11 +333,28 @@
       border: none;
       outline: none;
       cursor: pointer;
+      position: relative;
+      overflow: hidden;
     }
     .contact-btn:hover {
       background: linear-gradient(90deg, #fffde4 60%, #ffe066 100%);
       box-shadow: 0 4px 24px rgba(255,224,102,0.18);
       transform: translateY(-2px) scale(1.04);
+    }
+    .ripple {
+      position: absolute;
+      border-radius: 50%;
+      transform: scale(0);
+      animation: ripple 0.6s linear;
+      background-color: rgba(21, 22, 27, 0.18);
+      pointer-events: none;
+      z-index: 2;
+    }
+    @keyframes ripple {
+      to {
+        transform: scale(4);
+        opacity: 0;
+      }
     }
     .footer-socials {
       display: flex;
@@ -456,6 +490,11 @@
       box-shadow: 0 8px 32px rgba(44,62,80,0.13);
       background: #fff;
       display: block;
+      animation: floatPic 3.5s ease-in-out infinite alternate;
+    }
+    @keyframes floatPic {
+      0% { transform: translateY(0px); }
+      100% { transform: translateY(-18px); }
     }
     .badge {
       display: inline-flex;
@@ -805,6 +844,33 @@
     .whatsapp-link:hover {
       color: #128C7E;
     }
+    /* 1. Typewriter effect for main heading */
+    .typewriter {
+      overflow: hidden;
+      border-right: .15em solid #ffe066;
+      white-space: nowrap;
+      margin: 0 auto;
+      letter-spacing: .08em;
+      animation: typing 2.5s steps(30, end), blink-caret .75s step-end infinite;
+    }
+    @keyframes typing {
+      from { width: 0 }
+      to { width: 100% }
+    }
+    @keyframes blink-caret {
+      from, to { border-color: transparent }
+      50% { border-color: #ffe066; }
+    }
+    /* 5. Confetti burst for WhatsApp button */
+    .confetti {
+      position: absolute;
+      pointer-events: none;
+      z-index: 9999;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      opacity: 0.85;
+    }
   </style>
 </head>
 <body>
@@ -823,7 +889,7 @@
     <div class="hero-right">
       <span class="badge badge-available">Available for commission work</span>
       <h1 class="hero-title-modern">
-        <span class="hero-title-main">Hi, I'm Sho</span><br>
+        <span class="hero-title-main typewriter">Hi, I'm Arryan</span><br>
         <span class="hero-title-highlight">Artist/<span class="highlight-yellow">Digital Artist</span></span>
       </h1>
       <p class="hero-subtitle-modern">A passionate artist devoted to crafting expressive digital and sketch artworks that inspire, connect, and leave a lasting impression.</p>
@@ -1003,6 +1069,51 @@
         this.style.display = 'none';
       }
     };
+    // 3. Ripple effect on contact button click
+    document.querySelectorAll('.contact-btn').forEach(btn => {
+      btn.addEventListener('click', function(e) {
+        const ripple = document.createElement('span');
+        ripple.className = 'ripple';
+        const rect = btn.getBoundingClientRect();
+        ripple.style.left = (e.clientX - rect.left) + 'px';
+        ripple.style.top = (e.clientY - rect.top) + 'px';
+        ripple.style.width = ripple.style.height = Math.max(rect.width, rect.height) + 'px';
+        btn.appendChild(ripple);
+        setTimeout(() => ripple.remove(), 600);
+      });
+    });
+    // 5. Confetti burst for WhatsApp button
+    function randomColor() {
+      const colors = ['#25D366', '#ffe066', '#1abc9c', '#fffde4', '#7fbeab', '#fd5949', '#d6249f'];
+      return colors[Math.floor(Math.random() * colors.length)];
+    }
+    function createConfetti(x, y, parent) {
+      for (let i = 0; i < 24; i++) {
+        const confetti = document.createElement('div');
+        confetti.className = 'confetti';
+        confetti.style.background = randomColor();
+        confetti.style.left = x + 'px';
+        confetti.style.top = y + 'px';
+        confetti.style.position = 'absolute';
+        confetti.style.transform = `translate(-50%, -50%) scale(${Math.random() * 1.2 + 0.6})`;
+        confetti.style.transition = 'all 1s cubic-bezier(.4,2,.6,1)';
+        parent.appendChild(confetti);
+        setTimeout(() => {
+          confetti.style.left = (x + (Math.random() - 0.5) * 120) + 'px';
+          confetti.style.top = (y + (Math.random() - 0.5) * 80) + 'px';
+          confetti.style.opacity = 0;
+        }, 10);
+        setTimeout(() => confetti.remove(), 1100);
+      }
+    }
+    document.querySelectorAll('.contact-btn').forEach(btn => {
+      if (btn.href && btn.href.includes('wa.me')) {
+        btn.addEventListener('click', function(e) {
+          const rect = btn.getBoundingClientRect();
+          createConfetti(rect.width / 2, rect.height / 2, btn);
+        });
+      }
+    });
   </script>
 </body>
 </html>
